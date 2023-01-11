@@ -1,5 +1,25 @@
-# TWOTTER - A simple Twitter clone
+# TWOTTER
 
+## Description
+A simple Twitter clone using [Vite](https://vitejs.dev) + [Tailwind CSS](https://tailwindcss.com) + [Firebase](https://firebase.google.com).
+
+## Project setup
+
+```
+npm install
+```
+
+### Compiles and hot-reloads for development
+
+```
+npm run dev
+```
+
+### Compiles and minifies for production
+
+```
+npm run build
+```
 ## Todo
 - [x] Create a new project
 - [x] Add Tailwind CSS
@@ -16,30 +36,9 @@
 - [ ] Like/unlike tweet
 - [ ] Support images
 
-## Extra
+### Extra
 - [ ] Comment tweet
 - [ ] Add profile
 - [ ] Pagination/Infinite scroll
 - [ ] Retweet
 - [ ] Dark mode
-
-## Description
-Vite + Tailwind CSS + Firebase
-
-## Project setup
-
-```
-npm install
-```
-
-## Compiles and hot-reloads for development
-
-```
-npm run dev
-```
-
-## Compiles and minifies for production
-
-```
-npm run build
-```
