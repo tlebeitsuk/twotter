@@ -28,21 +28,25 @@
   <title>Twotter</title>
 </head>
 
-<body class="flex justify-center items-start gap-4">
-  <section class="top-4 sticky">
+<body class="flex flex-col justify-center items-start md:gap-4 md:flex-row">
+  <section
+    class="sticky top-0 bg-white w-full border-b border-gray-200 flex justify-between items-center px-4 md:max-w-xs md:top-4 md:border-none md:p-0 md:w-auto"
+  >
     <img
       src="logo.png"
       alt="Logo"
       class="w-14"
     >
+
+    <button class="border-2 border-blue-500 text-blue-500 rounded-2xl py-1 px-6 md:hidden">Log in</button>
   </section>
 
-  <main class="max-w-[598px] w-full border-x border-gray-200 p-4">
+  <main class="max-w-[598px] w-full border-gray-200 p-4 md:border-x">
     <h1 class="font-bold text-2xl">Tweets</h1>
 
     <ul class="space-y-6 mt-6">
-      <li class="flex gap-4 items-start border-b pb-6">
-        <div class=" bg-gray-300 w-48 h-14 rounded-full">
+      <li class="flex gap-4 border-b pb-6">
+        <div class="w-48 h-14 rounded-full">
           <img
             src="logo.png"
             alt=""
@@ -58,15 +62,15 @@
             atque fuga assumenda accusamus. Nemo repellat dolorem quos, officia labore distinctio deserunt aliquam vitae
             rem? Provident, officia!</p>
 
-          <div class="flex items-center gap-2 mt-1">
+          <button class="flex items-center gap-2 mt-1  hover:text-red-300">
             <i class="ph-heart text-xl"></i>
             <span class="text-sm">23</span>
-          </div>
+          </button>
         </div>
       </li>
 
       <li class="flex gap-4 items-start">
-        <div class=" bg-gray-300 w-48 h-14 rounded-full">
+        <div class="w-48 h-14 rounded-full">
           <img
             src="logo.png"
             alt=""
@@ -90,8 +94,21 @@
       </li>
     </ul>
   </main>
-  <section class="bg-green-400 top-4 left-0 sticky">
-    <div>Log in</div>
+
+  <section class="top-4 left-0 sticky max-w-xs hidden md:block">
+    <div class="border border-gray-200 p-4 rounded-xl space-y-6 mb-2">
+      <h2 class="font-bold text-xl">New to Twotter?</h2>
+      <button
+        class="border border-gray-300 p-2 rounded-3xl flex justify-center items-center gap-2 w-full hover:bg-gray-200"
+      >
+        <i class="ph-google-logo-bold text-2xl"></i>
+        Sign up with Google
+      </button>
+      <p class="text-sm text-gray-500">By signing up, you agree to the Terms of Service and Privacy Policy, including
+        Cookie Use.</p>
+    </div>
+
+    <p class="text-sm text-gray-500 pl-4">© 2023 Twotter, Inc.</p>
   </section>
 
   <script
