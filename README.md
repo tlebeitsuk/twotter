@@ -23,10 +23,10 @@ npm run build
 ## Todo
 - [x] Create a new project
 - [x] Add Tailwind CSS
-- [ ] Design the UI
+- [x] Design the UI
+- [ ] Create feed
 - [ ] Add Firebase
 - [ ] Add database
-- [ ] Create feed
 - [ ] Add authentication
 - [ ] Add sign up
 - [ ] Add sign in
