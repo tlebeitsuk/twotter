@@ -12,7 +12,16 @@ supabase.auth.onAuthStateChange((event, session) => {
     document.querySelector("#login").classList.add("hidden")
 
     // Show logout
-    // Todo
+    document.querySelector("#logout > h2").innerText = session.user.email
+    document.querySelector("#logout").classList.remove("hidden")
+  }
+
+  if (event == 'SIGNED_OUT') {
+    // Show login
+    document.querySelector("#login").classList.remove("hidden")
+
+    // Hide logout
+    document.querySelector("#logout").classList.add("hidden")
   }
 })
 
@@ -48,6 +57,17 @@ form.addEventListener("submit", async function (event) {
         alert(signUpError.message)
       }
     }
+  }
+})
+
+// Sign out
+const signOutButton = document.querySelector("#logout > button")
+
+signOutButton.addEventListener("click", async function () {
+  const { error } = await supabase.auth.signOut()
+
+  if (error) {
+    console.log(error)
   }
 })
 
