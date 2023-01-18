@@ -3,16 +3,53 @@ import { supabase } from './supabase.js'
 
 // Auth
 
-const form = document.querySelector("form")
-form.addEventListener("submit", async function (event) {
-  event.preventDefault()
+// Listen to auth events
+supabase.auth.onAuthStateChange((event, session) => {
+  if (event == 'SIGNED_IN') {
+    console.log('SIGNED_IN', session)
 
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email: 'example@email.com',
-    password: 'example-password',
-  })
+    // Hide login
+    document.querySelector("#login").classList.add("hidden")
+
+    // Show logout
+    // Todo
+  }
 })
 
+
+// Sign in/up
+const form = document.querySelector("form")
+
+form.addEventListener("submit", async function (event) {
+  const email = form[0].value
+  const password = form[1].value
+
+  event.preventDefault()
+
+  // Login
+  const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  })
+
+  // If login error
+  if (signInError) {
+    // If no account, sign up  
+    if (signInError.message === "Invalid login credentials") {
+      const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
+        email,
+        password,
+      })
+
+      // If user already registered
+      if (signUpError.message === "User already registered") {
+        alert(signInError.message)
+      } else {
+        alert(signUpError.message)
+      }
+    }
+  }
+})
 
 // Tweets
 async function getTweets() {
@@ -37,7 +74,6 @@ async function getTweets() {
 
   // Loop over tweets
   for (const i of data) {
-    console.log(i)
     const itemEl = document.createElement('li')
     itemEl.classList.add('flex', 'gap-4', 'border-b', 'pb-6')
 
