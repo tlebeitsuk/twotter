@@ -27,7 +27,7 @@ npm run build
 - [x] Create feed
 - [x] Create Supabase project
 - [x] Add Supabase SDK (Software Development Kit)
-- [ ] Add database
+- [x] Add database
 - [ ] Add authentication
 - [ ] Add sign up
 - [ ] Add sign in

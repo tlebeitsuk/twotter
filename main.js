@@ -1,6 +1,20 @@
 import './style.css'
 import { supabase } from './supabase.js'
 
+// Auth
+
+const form = document.querySelector("form")
+form.addEventListener("submit", async function (event) {
+  event.preventDefault()
+
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email: 'example@email.com',
+    password: 'example-password',
+  })
+})
+
+
+// Tweets
 async function getTweets() {
   // Get data from database
   const { data, error } = await supabase
