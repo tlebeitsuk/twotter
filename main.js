@@ -14,6 +14,9 @@ supabase.auth.onAuthStateChange((event, session) => {
     // Show logout
     document.querySelector("#logout > h2").innerText = session.user.email
     document.querySelector("#logout").classList.remove("hidden")
+
+    // Show new tweet
+    document.querySelector("main > div").classList.remove("hidden")
   }
 
   if (event == 'SIGNED_OUT') {
@@ -22,6 +25,9 @@ supabase.auth.onAuthStateChange((event, session) => {
 
     // Hide logout
     document.querySelector("#logout").classList.add("hidden")
+
+    // Hide new tweet
+    document.querySelector("main > div").classList.add("hidden")
   }
 })
 
@@ -50,6 +56,12 @@ form.addEventListener("submit", async function (event) {
         password,
       })
 
+      if (signUpData.user.id) {
+        const { error } = await supabase
+        .from('users')
+        .insert({ username: signUpData.user.email })
+      }
+
       // If user already registered
       if (signUpError.message === "User already registered") {
         alert(signInError.message)
@@ -72,19 +84,29 @@ signOutButton.addEventListener("click", async function () {
 })
 
 // Tweets
+
+// Listen for changes to database table
+supabase
+  .channel('public:tweets')
+  .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'tweets' }, newTweet)
+  .subscribe()
+
+function newTweet (e) {
+  console.log(e)
+}
+
 async function getTweets() {
   // Get data from database
   const { data, error } = await supabase
     .from('tweets')
     .select(`
-    id,
-    message,
-    created_at,
-    users (
-      username,
-      name
-    )
-    `)
+      id,
+      message,
+      created_at,
+      users (
+        username
+      )
+    `).order('created_at', {ascending: false})
 
   if (error) {
     console.log(error)
@@ -106,8 +128,7 @@ async function getTweets() {
       </div>
       <div>
         <div class="flex gap-2 text-gray-500">
-          <span class="font-semibold text-black">${i.users.name}</span>
-          <span>@${i.users.username}</span>
+          <span class="font-semibold text-black">${i.users.username}</span>
           <span>${new Date(i.created_at).toLocaleString()}</span>
         </div>
         <p>${i.message}</p>
@@ -123,3 +144,24 @@ async function getTweets() {
 }
 
 getTweets()
+
+
+// New tweet
+document.querySelector("#tweet").addEventListener("click", async function() {
+  const text = document.querySelector("textarea")
+
+  const { data, error } = await supabase.auth.getSession()
+
+  if (error) console.log(error)
+
+  if (data.session.user.id) {
+    const { error } = await supabase
+      .from('tweets')
+      .insert({ message: text.value })
+
+      if (error) console.log(error)
+
+      // Clear input
+      text.value = ''
+  }
+})

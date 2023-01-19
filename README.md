@@ -28,16 +28,16 @@ npm run build
 - [x] Create Supabase project
 - [x] Add Supabase SDK (Software Development Kit)
 - [x] Add database
-- [ ] Add authentication
-- [ ] Add sign up
-- [ ] Add sign in
-- [ ] Add sign out
-- [ ] Create tweet
+- [x] Add authentication
+- [x] Add sign up
+- [x] Add sign in
+- [x] Add sign out
+- [x] Create tweet
 - [ ] Delete own tweet
 - [ ] Like/unlike tweet
-- [ ] Support images
 
 ### Extra
+- [ ] Support images
 - [ ] Comment tweet
 - [ ] Add profile
 - [ ] Pagination/Infinite scroll
