@@ -33,10 +33,11 @@ npm run build
 - [x] Add sign in
 - [x] Add sign out
 - [x] Create tweet
+- [x] Update feed
 - [ ] Delete own tweet
-- [ ] Like/unlike tweet
 
 ### Extra
+- [ ] Like/unlike tweet
 - [ ] Support images
 - [ ] Comment tweet
 - [ ] Add profile

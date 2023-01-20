@@ -91,9 +91,23 @@ supabase
   .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'tweets' }, newTweet)
   .subscribe()
 
+let newTweetCount = 0
+
 function newTweet (e) {
-  console.log(e)
+  newTweetCount++
+
+  const newTweetsEl = document.querySelector("#new-tweets")
+
+  newTweetsEl.innerText = `Show ${newTweetCount} Tweets`
+  newTweetsEl.classList.remove('hidden')
 }
+
+document.querySelector("#new-tweets").addEventListener("click", function() {
+  document.querySelector("#new-tweets").classList.add('hidden')
+  document.querySelector('ul').replaceChildren()
+  newTweetCount = 0
+  getTweets()
+})
 
 async function getTweets() {
   // Get data from database
@@ -114,6 +128,8 @@ async function getTweets() {
 
   const listEl = document.querySelector('ul')
 
+  const { data: user } = await supabase.auth.getSession()
+
   // Loop over tweets
   for (const i of data) {
     const itemEl = document.createElement('li')
@@ -130,14 +146,22 @@ async function getTweets() {
         <div class="flex gap-2 text-gray-500">
           <span class="font-semibold text-black">${i.users.username}</span>
           <span>${new Date(i.created_at).toLocaleString()}</span>
+          <i id="delete-${i.id}" class="ph-trash text-xl text-blue-500 cursor-pointer ${i.users.username == user.session?.user.email ? '' : 'hidden' }"></i>
         </div>
         <p>${i.message}</p>
-        <button class="flex items-center gap-2 mt-1  hover:text-red-300">
-          <i class="ph-heart text-xl"></i>
-          <span class="text-sm">0</span>
-        </button>
       </div>
     `
+
+    itemEl.addEventListener("click", async function() {
+      const { error } = await supabase
+        .from('tweets')
+        .delete()
+        .eq('id', i.id)
+
+        itemEl.remove()
+
+      if(error) console.log(error)
+    })
 
     listEl.appendChild(itemEl)
   }
