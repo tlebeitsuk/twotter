@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link
+    rel="icon"
+    type="image/svg+xml"
+    href="/twotter/vite.svg"
+  />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+    rel="stylesheet"
+  >
+  <title>Twotter</title>
+  <script type="module" crossorigin src="/twotter/assets/index-4edd496f.js"></script>
+  <link rel="stylesheet" href="/twotter/assets/index-53e42332.css">
+</head>
+
+<body class="flex flex-col justify-center items-start md:gap-4 md:flex-row">
+  <section
+    class="sticky top-0 bg-white w-full border-b border-gray-200 flex justify-between items-center px-4 md:max-w-xs md:top-4 md:border-none md:p-0 md:w-auto"
+  >
+    <img
+      src="/twotter/assets/logo-5a6e4ec9.png"
+      alt="Logo"
+      class="w-14"
+    >
+
+    <button class="border-2 border-blue-500 text-blue-500 rounded-2xl py-1 px-6 md:hidden">Log in</button>
+  </section>
+
+  <main class="max-w-[598px] w-full border-gray-200 p-4 md:border-x">
+    <div class="hidden flex gap-4 mb-4">
+      <div class="w-14 h-14 rounded-full">
+        <img
+          src="/twotter/assets/logo-5a6e4ec9.png"
+          alt=""
+        >
+      </div>
+      <div class="w-full">
+        <textarea class="w-full mb-2" placeholder="What's happening?" rows="2"></textarea>
+        <button id="tweet" class="bg-blue-500 px-4 py-1 rounded-3xl text-white float-right">Tweet</button>
+      </div>
+    </div>
+
+    <h1 class="font-bold text-2xl">Tweets</h1>
+
+    <div id="new-tweets" class="hidden w-full py-4 text-center border-b text-blue-500 cursor-pointer">
+      <!-- New tweet count goes here -->
+    </div>
+
+    <ul class="space-y-6 mt-6">
+      <!-- Tweets go here -->
+    </ul>
+  </main>
+
+  <section class="top-4 left-0 sticky max-w-xs hidden md:block">
+    <div
+      id="login"
+      class="border border-gray-200 p-4 rounded-xl space-y-4 mb-2"
+    >
+      <h2 class="font-bold text-xl">New to Twotter?</h2>
+      <form class="space-y-4">
+        <input
+          type="email"
+          placeholder="Email"
+          class="border border-gray-300 py-2 px-4 rounded-3xl w-full"
+        >
+        <input
+          type="password"
+          placeholder="Password"
+          class="border border-gray-300 py-2 px-4 rounded-3xl w-full"
+        >
+
+        <button
+          type="submit"
+          class="border border-gray-300 p-2 rounded-3xl flex justify-center items-center gap-2 w-full hover:bg-gray-200"
+        >
+          <i class="ph-paper-plane-right text-2xl"></i>
+          Sign in
+        </button>
+      </form>
+      <p class="text-sm text-gray-500">By signing up, you agree to the Terms of Service and Privacy Policy, including
+        Cookie Use.</p>
+    </div>
+
+    <div
+      id="logout"
+      class="hidden border border-gray-200 p-4 rounded-xl space-y-4 mb-2 min-w-[220px]"
+    >
+      <h2></h2>
+      <button
+        class="border border-gray-300 p-2 rounded-3xl flex justify-center items-center gap-2 w-full hover:bg-gray-200"
+      >
+        <i class="ph-paper-plane-right text-2xl"></i>
+        Sign out
+      </button>
+    </div>
+
+    <p class="text-sm text-gray-500 pl-4">© 2023 Twotter, Inc.</p>
+  </section>
+
+  
+  <script src="https://unpkg.com/phosphor-icons"></script>
+</body>
+
+</html>
