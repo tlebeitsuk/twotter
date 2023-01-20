@@ -155,7 +155,7 @@ async function getTweets() {
         <div class="flex gap-2 text-gray-500">
           <span class="font-semibold text-black">${i.users.username}</span>
           <span>${new Date(i.created_at).toLocaleString()}</span>
-          <i class="ph-trash text-xl text-blue-500 cursor-pointer ${i.users.username == user.session?.user.email ? '' : 'hidden' }"></i>
+          <i class="ph-trash text-xl text-blue-500 cursor-pointer" style="${i.users.username == user.session?.user.email ? '' : 'display: none' }"></i>
         </div>
         <p>${i.message}</p>
       </div>
