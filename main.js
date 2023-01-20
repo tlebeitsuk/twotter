@@ -5,29 +5,35 @@ import { supabase } from './supabase.js'
 
 // Listen to auth events
 supabase.auth.onAuthStateChange((event, session) => {
+  const loginEl = document.querySelector("#login")
+  const logoutEl = document.querySelector("#logout")
+  const newTweetEl = document.querySelector("main > div")
+
+  // If logged in
   if (event == 'SIGNED_IN') {
     console.log('SIGNED_IN', session)
 
     // Hide login
-    document.querySelector("#login").classList.add("hidden")
+    loginEl.classList.add("hidden")
 
     // Show logout
     document.querySelector("#logout > h2").innerText = session.user.email
-    document.querySelector("#logout").classList.remove("hidden")
+    logoutEl.classList.remove("hidden")
 
     // Show new tweet
-    document.querySelector("main > div").classList.remove("hidden")
+    newTweetEl.classList.remove("hidden")
   }
 
+  // If logged out
   if (event == 'SIGNED_OUT') {
     // Show login
-    document.querySelector("#login").classList.remove("hidden")
+    loginEl.classList.remove("hidden")
 
     // Hide logout
-    document.querySelector("#logout").classList.add("hidden")
+    logoutEl.classList.add("hidden")
 
     // Hide new tweet
-    document.querySelector("main > div").classList.add("hidden")
+    newTweetEl.classList.add("hidden")
   }
 })
 
@@ -39,10 +45,11 @@ form.addEventListener("submit", async function (event) {
   const email = form[0].value
   const password = form[1].value
 
+  // Stop page from refreshing
   event.preventDefault()
 
   // Login
-  const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
+  const { error: signInError } = await supabase.auth.signInWithPassword({
     email,
     password,
   })
@@ -56,10 +63,13 @@ form.addEventListener("submit", async function (event) {
         password,
       })
 
+      // Create user in database
       if (signUpData.user.id) {
         const { error } = await supabase
         .from('users')
         .insert({ username: signUpData.user.email })
+
+        if(error) console.log(error)
       }
 
       // If user already registered
@@ -78,9 +88,7 @@ const signOutButton = document.querySelector("#logout > button")
 signOutButton.addEventListener("click", async function () {
   const { error } = await supabase.auth.signOut()
 
-  if (error) {
-    console.log(error)
-  }
+  if (error) console.log(error)
 })
 
 // Tweets
@@ -102,6 +110,7 @@ function newTweet (e) {
   newTweetsEl.classList.remove('hidden')
 }
 
+// Refresh feed
 document.querySelector("#new-tweets").addEventListener("click", function() {
   document.querySelector("#new-tweets").classList.add('hidden')
   document.querySelector('ul').replaceChildren()
@@ -146,18 +155,20 @@ async function getTweets() {
         <div class="flex gap-2 text-gray-500">
           <span class="font-semibold text-black">${i.users.username}</span>
           <span>${new Date(i.created_at).toLocaleString()}</span>
-          <i id="delete-${i.id}" class="ph-trash text-xl text-blue-500 cursor-pointer ${i.users.username == user.session?.user.email ? '' : 'hidden' }"></i>
+          <i class="ph-trash text-xl text-blue-500 cursor-pointer ${i.users.username == user.session?.user.email ? '' : 'hidden' }"></i>
         </div>
         <p>${i.message}</p>
       </div>
     `
 
+    // Delete tweet
     itemEl.addEventListener("click", async function() {
       const { error } = await supabase
         .from('tweets')
         .delete()
         .eq('id', i.id)
 
+        // Delete element
         itemEl.remove()
 
       if(error) console.log(error)

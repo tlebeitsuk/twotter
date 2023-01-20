@@ -34,7 +34,7 @@ npm run build
 - [x] Add sign out
 - [x] Create tweet
 - [x] Update feed
-- [ ] Delete own tweet
+- [x] Delete own tweet
 
 ### Extra
 - [ ] Like/unlike tweet
